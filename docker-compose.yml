@@ -1,0 +1,26 @@
+
+services:
+  app:
+    build: .
+    container_name: social-media-downloader
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./downloads:/downloads
+      - ./cookies.txt:/app/cookies.txt:ro
+    environment:
+      - API_PORT=8000
+      - DOWNLOAD_DIR=/downloads
+      - MAX_FILE_SIZE_MB=2048
+      - CLEANUP_HOURS=24
+      - ALLOWED_DOMAINS=*
+      # - COOKIES_PATH=/app/cookies.txt
+      # - IPV6_BLOCKS=2001:db8:1::/64
+      # - IPV6_ENABLED=true
+    # Cần set sysctls nếu muốn bind nonlocal IPv6
+    # sysctls:
+    #   - net.ipv6.ip_nonlocal_bind=1
+
+volumes:
+  downloads:

@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+yt-dlp>=2024.03.10
+gallery-dl>=1.26.8
+python-multipart
+pydantic
+pydantic-settings
+aiofiles
+requests

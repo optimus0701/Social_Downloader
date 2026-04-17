@@ -1,0 +1,17 @@
+.git
+.gitignore
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+**/node_modules/
+**/.npm/
+downloads/
+**/dist/
+.vscode/
+.idea/
+.DS_Store
