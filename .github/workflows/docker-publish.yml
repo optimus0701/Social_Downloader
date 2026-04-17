@@ -4,7 +4,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main 
+      - master
 
 jobs:
   build-and-push:
@@ -33,4 +33,4 @@ jobs:
           context: . # Đường dẫn chứa Dockerfile (ở đây là thư mục gốc)
           push: true
           # Thay 'my-app' bằng tên ứng dụng/image bạn muốn đặt trên Docker Hub
-          tags: ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/social-downloader:latest
