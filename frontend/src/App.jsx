@@ -30,10 +30,11 @@ function AppContent() {
         <Header />
         
         <main>
-          {/* We intercept the form submission slightly to manage the global loading state */}
-          <div onClick={isFetchingInfo ? null : handleFetchStart}>
+          {/* We now pass onFetchStart instead of intercepting all clicks */}
+          <div>
             <DownloadForm 
               onInfoFetched={handleInfoFetched} 
+              onFetchStart={handleFetchStart}
               isFetching={isFetchingInfo} 
             />
           </div>

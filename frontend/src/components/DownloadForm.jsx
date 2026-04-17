@@ -3,7 +3,7 @@ import { Link2, Search, Video, Music, Image as ImageIcon } from 'lucide-react';
 import { api } from '../services/api';
 import { useToast } from './Toast';
 
-export default function DownloadForm({ onInfoFetched, isFetching }) {
+export default function DownloadForm({ onInfoFetched, onFetchStart, isFetching }) {
   const [url, setUrl] = useState('');
   const { showToast } = useToast();
 
@@ -12,11 +12,14 @@ export default function DownloadForm({ onInfoFetched, isFetching }) {
     if (!url) return;
 
     try {
-      // isFetching is handled by parent App.jsx to show global loading state if needed
+      console.log("[DownloadForm] Analyzing URL:", url);
+      if (onFetchStart) onFetchStart();
       onInfoFetched(null); // Clear previous
       const info = await api.getInfo(url);
+      console.log("[DownloadForm] Info fetched successfully:", info);
       onInfoFetched({ ...info, originalUrl: url });
     } catch (error) {
+      console.error("[DownloadForm] Error fetching info:", error);
       showToast(error.message, 'error');
     }
   };

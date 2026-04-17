@@ -11,11 +11,14 @@ export default function MediaPreview({ info, onDownloadStart }) {
   if (!info) return null;
 
   const handleDownload = () => {
+    console.log("[MediaPreview] Starting download for:", info.originalUrl, "Format:", formatType);
     onDownloadStart(info.originalUrl, formatType, 'highest')
       .then(() => {
+        console.log("[MediaPreview] Download initialized successfully");
         showToast(`Download started!`, 'success');
       })
       .catch(err => {
+        console.error("[MediaPreview] Error starting download:", err);
         showToast(err.message, 'error');
       });
   };
