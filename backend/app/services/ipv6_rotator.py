@@ -51,15 +51,18 @@ class IPv6Rotator:
             return None
             
         # The NanoSwitch logic: use current nanoseconds as an offset for the lower 64 bits
-        # In Python, time.time_ns() gives nanoseconds since epoch
         nano_time = time.time_ns()
         
-        # A /64 has 64 bits for host. We use the lower 64 bits of nano_time
-        # network_address has the routing part
-        network_int = int(block.network_address)
+        # Calculate dynamic host part based on network prefix length
+        # For a /64, max_host_bits = 64. For a /128, max_host_bits = 0
+        max_host_bits = 128 - block.prefixlen
         
-        # Combine the network part and the host part
-        host_part = nano_time % (2**64) # Keep only 64 bits
+        if max_host_bits == 0:
+            # It's a single IP address (e.g., /128), just return it
+            return str(block.network_address)
+            
+        network_int = int(block.network_address)
+        host_part = nano_time % (2 ** max_host_bits)
         
         new_address_int = network_int + host_part
         return str(ipaddress.IPv6Address(new_address_int))
