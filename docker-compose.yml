@@ -18,9 +18,9 @@ services:
       # - COOKIES_PATH=/app/cookies.txt
       # - IPV6_BLOCKS=2001:db8:1::/64
       # - IPV6_ENABLED=true
-    # Cần set sysctls nếu muốn bind nonlocal IPv6
-    # sysctls:
-    #   - net.ipv6.ip_nonlocal_bind=1
+    # Cần set sysctls nếu muốn bind nonlocal IPv6 (Bắt buộc cho IPv6 Rotation trong container)
+    sysctls:
+      - net.ipv6.ip_nonlocal_bind=1
 
 volumes:
   downloads:
